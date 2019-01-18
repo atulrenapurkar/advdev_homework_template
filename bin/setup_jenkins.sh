@@ -45,7 +45,7 @@ items:
         - name: "CLUSTER"
           value: "na311.openshift.opentlc.com"
 kind: List
-metadata: []" | oc create -f - -n jsm-jenkins
+metadata: []" | oc create -f - -n ${GUID}-jenkins
 
 # Make sure that Jenkins is fully up and running before proceeding!
 while : ; do

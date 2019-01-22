@@ -32,18 +32,18 @@ items:
       type: "Git"
       git:
         uri: "https://github.com/mathianasj/advdev_homework_template"
-        contextDir: openshift-tasks
+      contextDir: openshift-tasks
     strategy:
       type: "JenkinsPipeline"
       jenkinsPipelineStrategy:
         jenkinsfilePath: Jenkinsfile
-      env:
-        - name: "GUID"
-          value: "${GUID}"
-        - name: "REPO"
-          value: "https://github.com/mathianasj/advdev_homework_template"
-        - name: "CLUSTER"
-          value: "na311.openshift.opentlc.com"
+        env:
+          - name: "GUID"
+            value: "${GUID}"
+          - name: "REPO"
+            value: "https://github.com/mathianasj/advdev_homework_template"
+          - name: "CLUSTER"
+            value: "na311.openshift.opentlc.com"
 kind: List
 metadata: []" | oc create -f - -n ${GUID}-jenkins
 

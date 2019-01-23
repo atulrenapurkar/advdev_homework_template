@@ -83,6 +83,9 @@ podTemplate(
         sh "oc delete configmap tasks-config -n ${GUID}-tasks-dev --ignore-not-found=true"
         sh "oc create configmap tasks-config --from-file=./configuration/application-users.properties --from-file=./configuration/application-roles.properties -n ${GUID}-tasks-dev"
 
+	// set version
+        sh "oc set env dc/tasks VERSION=\"${version} (tasks-dev)\" -n ${GUID}-tasks-dev"
+
         // Deploy the development application.
         // Replace xyz-tasks-dev with the name of your production project
         openshiftDeploy depCfg: 'tasks', namespace: '${GUID}-tasks-dev', verbose: 'false', waitTime: '', waitUnit: 'sec'
@@ -135,6 +138,8 @@ podTemplate(
         // Update the Config Map which contains the users for the Tasks application
         sh "oc delete configmap ${destApp}-config -n ${GUID}-tasks-prod --ignore-not-found=true"
         sh "oc create configmap ${destApp}-config --from-file=./configuration/application-users.properties --from-file=./configuration/application-roles.properties -n ${GUID}-tasks-prod"
+
+	sh "oc set env dc/${destApp} VERSION=\"${version} (${destApp})\" -n ${GUID}-tasks-prod"
 
         // Deploy the inactive application.
         // Replace xyz-tasks-prod with the name of your production project
